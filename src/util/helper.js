@@ -1,4 +1,5 @@
 
+
 let date = new Date()
 
 
@@ -6,10 +7,9 @@ function printDate(){
     console.log("Today's date is:-",date.getDate())
 }
 
-
-
 function printMonth(){
-    console.log("Month of this year is:-",date.getMonth())
+    
+    console.log("Month of this year is:-",date.getMonth())  
 }
 
 function getBatchInfo(){
@@ -17,6 +17,8 @@ function getBatchInfo(){
     console.log("Week is:-","W3D5")
     console.log("Topic:-","Nodejs module system")
 }
+
+
 
 
 module.exports.printDate = printDate
