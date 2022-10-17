@@ -8,15 +8,17 @@ router.get('/test-me', function (req, res) {
     res.send('My second ever api!')
 });
 
-router.get('/students', function (req, res){
+
+router.get('/students', function (req, res) {
     console.log("The path params in the request are : ", req.params)
     let students = ['Sabiha', 'Neha', 'Akash']
     res.send(students)
 })
 
 
+
 // Example 1 for path params
-router.get('/students/:studentName', function(req, res){
+router.get('/students/:studentName', function (req, res) {
     // ':' denotes that the following part of route is a variable
     // The value of this variable is what we are sending in the request url after /students
     // This value is set in the form of an object inside req.params
@@ -25,19 +27,129 @@ router.get('/students/:studentName', function(req, res){
     // value is whatever dynamic value sent in the request url
     let myParams = req.params
 
+
     // params attribute is fixed in a request object
     // params contains the path parameters object
     console.log("The path params in the request are : ", myParams)
-    res.send('The full name is ' + myParams.studentName )
+    res.send('The full name is ' + myParams.studentName)
 })
 
 // Example 2 for path params
-router.get('/student-details/:name', function(req, res){
+router.get('/student-details/:name', function (req, res) {
     let requestParams = req.params
     console.log("This is the request ", requestParams)
     let studentName = requestParams.name
     console.log('Name of the student is ', studentName)
     res.send('Dummy response')
 })
+
+
+
+
+
+
+
+// Problem API starts here ---------------------------------------------------------------------------------------
+
+
+
+// Global array
+
+let allMovies = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+
+
+// Problem 1 ++++++++++++
+
+router.get("/movies", function (req, res) {
+
+    //let allMovies = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+
+    res.send(allMovies)
+
+})
+
+
+
+// Problem 2 and Problem 3 both ++++++++++++
+
+router.get("/movies/:indexNumber", function (req, res) {
+
+    console.log(req.params)     // Obj of the req.
+
+    let index = req.params.indexNumber       // Here taking out value that is given in url , from req.param object.
+
+
+    // Below line is part of Problem 3
+    let result = allMovies[index] ? allMovies[index] : "Please Give valid index number"
+
+    res.send(result)
+
+})
+
+
+
+// Problem 4 ++++++++++++
+
+// Global object (Globel)
+// Array of objects
+
+let filmArr = [{
+    id: 1,
+    name: 'The Shining'
+}, {
+    id: 2,
+    name: 'Incendies'
+}, {
+    id: 3,
+    name: 'Rang de Basanti'
+}, {
+    id: 4,
+    name: 'Finding Nemo'
+}]
+
+
+
+router.get("/films", function (req, res) {
+    res.send(filmArr)
+})
+
+
+
+// Problem 5 ++++++++++++
+
+
+router.get("/films/:filId", function (req, res) {
+
+    let id = req.params.filId
+
+    // console.log(id)
+
+    let result =  'No movie exists with this id.'
+
+    for(let i = 0 ; i<filmArr.length ; i++ ){
+        if(filmArr[i]["id"] === Number(id)){
+            result = filmArr[i]
+            break
+        }
+    }
+
+    res.send(result)
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
