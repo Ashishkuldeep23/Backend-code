@@ -1,22 +1,15 @@
 
 
+// / -write an api which gives the missing number in an array of integers starting from 1….e.g [1,2,3,5,6,7]
+// 4 is missing
+
 
 function missingNeturalNum(arr){
 
     // let arr = [1,2,3,5,6,7]
 
-    // 1 = 8-9
-    // 2 = 7-9
-    // 3 = 6-9
-    // 5 = 4
-    // 6 = 3
-    // 7 = 2
-    // 8 = 1
-    // 9 = 0
-
-    // formula will be
-    // sumOfArr = (n*n+1)/2 - missingNum
-    // missingNum = (n*n+1)/2 - sumOfArr
+    // formula will be ==> sumOfArr = (n*n+1)/2 - missingNum
+    
 
 
     let sum = 0
@@ -24,6 +17,7 @@ function missingNeturalNum(arr){
     for(let i=0 ; i<n ; i++){
     sum += arr[i]
 
+    // // Logic first but here array should be sorted
     // if(arr[i]+1 !== arr[i+1]){
     //     console.log(arr[i]+1)
     //     break
@@ -43,19 +37,37 @@ function missingNeturalNum(arr){
 
     let last = arr[arr.length-1]       // Last element of array
 
+
            
     let mainMiss = last - miss   // Minus from last element of arr with  miss num 
 
-    console.log(mainMiss)
+    // console.log(mainMiss)
 
 
     return mainMiss
 
 
+
 }
 
 
-// missingNeturalNum([1,2,3,5,6,7])
+
+
+    // Concept calculated
+    // 1 = 8-9
+    // 2 = 7-9
+    // 3 = 6-9
+    // 5 = 4
+    // 6 = 3
+    // 7 = 2
+    // 8 = 1
+    // 9 = 0
+
+
+
+
+
+// missingNeturalNum([1,3,4,5,6,7])
 
 
 
