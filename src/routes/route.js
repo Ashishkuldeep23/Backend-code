@@ -70,9 +70,12 @@ router.get("/movies", function (req, res) {
 
 
 
+
+
 // Problem 2 and Problem 3 both ++++++++++++
 
 router.get("/movies/:indexNumber", function (req, res) {
+    
 
     console.log(req.params)     // Obj of the req.
 
@@ -85,6 +88,8 @@ router.get("/movies/:indexNumber", function (req, res) {
     res.send(result)
 
 })
+
+
 
 
 
