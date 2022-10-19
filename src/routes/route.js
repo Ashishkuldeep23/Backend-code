@@ -2,6 +2,21 @@ const express = require('express');
 const abc = require('../introduction/intro')
 const router = express.Router();
 
+
+
+// Assignment solve here --------------------------------->
+// Problem start here ----------------------------------->
+
+
+
+
+
+
+
+
+
+
+// Assignment over here ------------------------------------------------------------>
 router.get('/test-me', function (req, res) {
     console.log('My batch is', abc.name)
     abc.printName()
@@ -39,5 +54,51 @@ router.get('/student-details/:name', function(req, res){
     console.log('Name of the student is ', studentName)
     res.send('Dummy response')
 })
+
+
+
+
+// git post prectice here --------------------------------------------------------------------
+
+
+let arr = [
+    {name : "Ashutosh"},
+]
+
+
+router.post("/testing",function(req,res){
+    
+    console.log("Practice")
+
+    let take = req.body
+
+    let check = 0
+
+    for(let i=0 ; i<arr.length ; i++){
+
+        if(arr[i]["name"]  === take.name){
+            
+           check++
+
+           break
+            
+        }
+
+    }
+
+    if(check === 0){
+        arr.push(take)
+    }
+    
+    
+    // console.log(take)
+    console.log(arr)
+    res.send("All Ok "+JSON.stringify(arr))
+
+})
+
+
+
+
 
 module.exports = router;
