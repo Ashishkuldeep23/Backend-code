@@ -7,6 +7,65 @@ const router = express.Router();
 // Assignment solve here --------------------------------->
 // Problem start here ----------------------------------->
 
+// // Write a POST /players api that creates a new player ( i.e. that saves a player’s details and doesn’t allow saving the data of a player with a name that already exists in the data)
+
+
+let players =[
+   
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": ["swimming"]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": ["soccer"]
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": ["soccer"]
+       },
+]
+
+
+
+
+router.post("/players" , function(req , res){
+
+    // console.log("Practice")
+
+    let take = req.body     // object {}
+
+    let check = 0
+
+    for(let i=0 ; i<players.length ; i++){
+        if(players[i]["name"]  === take.name){
+           check++
+           break 
+        }
+    }
+
+    if(check === 0){
+        players.push(take)
+    }
+    
+    
+    // console.log(take)
+    console.log(players)
+
+    res.send(JSON.stringify(players))
+
+})
+
+
 
 
 
@@ -69,7 +128,6 @@ let arr = [
 router.post("/testing",function(req,res){
     
     console.log("Practice")
-
     let take = req.body
 
     let check = 0
@@ -77,9 +135,7 @@ router.post("/testing",function(req,res){
     for(let i=0 ; i<arr.length ; i++){
 
         if(arr[i]["name"]  === take.name){
-            
            check++
-
            break
             
         }
