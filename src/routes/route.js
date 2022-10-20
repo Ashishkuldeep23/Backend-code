@@ -40,8 +40,7 @@ let players =[
 
 router.post("/players" , function(req , res){
 
-    // console.log("Practice")
-
+    console.log("Practice")
     let take = req.body     // object {}
 
     let check = 0
