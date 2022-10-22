@@ -1,6 +1,82 @@
 const express = require('express');
 const router = express.Router();
 
+
+// Problem start here -------------------------------------->
+
+//you will be given an array of persons ( i.e an array of objects )..each person will have  a {name: String , age: Number, votingStatus: true/false(Boolean)}
+// take input in query param as votingAge..and for all the people above that age, change votingStatus as true
+// also return an array consisting of only the person that can vote
+
+
+
+let persons= [
+    {
+    name: "PK",
+    age: 10,
+    votingStatus: false
+ },
+ {
+    name: "SK",
+    age: 20,
+    votingStatus: false
+ },
+ {
+    name: "AA",
+    age: 70,
+    votingStatus: false
+ },
+ {
+    name: "SC",
+    age: 5,
+    votingStatus: false
+ },
+ {
+    name: "HO",
+    age: 40,
+    votingStatus: false
+ }
+ ]
+ 
+
+
+
+router.get("/isVoter" , function(req ,res){
+
+    let givenAge = req.query.votingAge
+
+    let votersAre = []
+
+    for(let i=0 ; i<persons.length ; i++){
+
+        if(givenAge <= persons[i].age ){
+
+            persons[i]["votingStatus"] = true
+
+            votersAre.push(persons[i])
+
+        }  
+
+
+    }
+
+
+
+    res.send({"Total Persons" : votersAre.length,output : votersAre})
+
+
+})
+
+
+
+
+// Practice start here ------------------------------------------------------------------------------------------->
+
+
+
+
+
+
 router.get('/students/:name', function(req, res) {
     let studentName = req.params.name
     console.log(studentName)
@@ -109,7 +185,7 @@ router.get("/:productName/p/:itemId", function(req, res) {
     let product = req.params.productName
     let itemId= req.params.itemId
     // ...
-    // hey nodejs, go and get me the data for hte variable ( its value) product 
+    // hey nodejs, go and get me the data for the variable ( its value) product 
     res.send( {data: product} )
 })
 
