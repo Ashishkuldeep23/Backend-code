@@ -17,7 +17,6 @@ const createBook = async function (req, res) {
 // bookList : gives all the books- their bookName and authorName only 
 
 const bookList = async function(req, res){
-
     let allData = await BookModel.find().select(
         {bookName : 1 , authorName : 1 , _id : 0 }
     )
@@ -30,12 +29,9 @@ const bookList = async function(req, res){
 // getBooksInYear: takes year as input in post request and gives list of all books published that year
 
 const getBooksInYear = async function(req ,res){
-
     let year =  req.body.year
     // console.log(typeof year)
-
     let allYearBooks = await BookModel.find({"year" : year})
-
     res.send({ outputLen : allYearBooks.length , output : allYearBooks})
 
 }
@@ -51,7 +47,6 @@ const getBooksInYear = async function(req ,res){
 
 
 const getParticularBooks = async function(req, res){
-
     let bookName = req.query.name
     let saal = req.query.saal
     let writterName = req.query.writterName
@@ -68,7 +63,6 @@ const getParticularBooks = async function(req, res){
 // getXINRBooks- request to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR” 
 
 const getXINRBooks = async function(req , res){
-
     let allData = await BookModel.find({
         "prices.indianPrice" : {$in :["Rs100" , "Rs200" , "Rs500"]}
         // {"prices.indianPrice" : {$in :["Rs500" ,"Rs100" , "Rs200"] }}
@@ -80,9 +74,8 @@ const getXINRBooks = async function(req , res){
 // getRandomBooks - returns books that are available in stock or have more than 500 pages 
 
 const getRandomBooks  = async function(req , res){
-
     let allData = await BookModel.aggregate([
-        { $match: { totalPages: {$gt : 500} } },
+        { $match: {$or : [{ totalPages: {$gt : 500} } , {stockAvailable : true}] }},
        { $sample: { size: 1 } }
     ])
     res.send({OutPutLen : allData.length ,output : allData})
@@ -92,6 +85,85 @@ const getRandomBooks  = async function(req , res){
 
 // Problem End here ---------------------------------->
 
+
+
+// Practice starts here ------------------------------>
+
+let practice = async function(req , res){
+
+    // // Data In Between  by using $and becoz checkingwith same key.
+    // let data = await BookModel.find( {
+    //     $and : [ {totalPages : {$gte : 450}} , {totalPages : {$lte : 550}}]
+    // })           
+
+
+
+
+
+    // // Here using path params to take input and finding acc. to input +++
+    // // URL look like ==> (localhost:3000/practiceMore/820)
+    // // Api look like ==> ("/practiceMore/:pages")
+    // let page = req.params.pages
+    // let data = await BookModel.find({totalPages : {$gte : page}})
+
+
+
+
+
+    // // Pagination in action , by using (.skip() and .limit())
+    // let page = req.query.page
+    // let data = await BookModel.find().skip(3 * (page-1)).limit(3)
+
+
+
+
+    // // Using .sort() ==> .sort() Takes keyname and the 1 or -1
+    // // 1 used for accending order(Sbse chhota phle) & -1 used for deccending order(Sbse bada phle) 
+    // // .sort() Most work with numeric value , if value is non numeric then it use time when data created.
+    // let data = await BookModel.find().sort( {bookName : -1 })
+
+
+
+
+
+    // // Using multiple method to get top 3 pages book 
+    // let data = await BookModel.find().sort( {totalPages : 1 }).limit(3).select({bookName : 1 ,  _id : 0 , totalPages:1})
+
+
+
+
+    // // // Using multiple method to get top 3 (From deccending order) pages book 
+    // let data = await BookModel.find().sort( {totalPages : -1 }).limit(3).select({bookName : 1 , _id : 0 , totalPages:1})
+
+
+
+    // // Using $ne (not equal to) function/method 
+    // let data = await BookModel.find({
+    //     authorName : {$ne : "PK"}
+    // })
+
+
+
+
+    
+
+
+    // // Using $nin (Not in List ) method
+    // let data = await BookModel.find({
+    //     totalPages : {$nin : [500 , 800 ,550 , 300 , 350 ,250 ,850]}
+    // }).select({totalPages : 1 ,_id :0})
+        
+
+
+
+    //Next
+
+    let data = await BookModel.find()
+
+
+
+    res.send({ outPutLen : data.length , Output : data})
+}
 
 
 
@@ -180,4 +252,4 @@ const getBooksData= async function (req, res) {
 // module.exports.getRandomBooks = getRandomBooks 
 
 
-module.exports = {createBook , getBooksData ,bookList , getBooksInYear ,getParticularBooks , getXINRBooks , getRandomBooks}
+module.exports = {createBook , getBooksData ,bookList , getBooksInYear ,getParticularBooks , getXINRBooks , getRandomBooks , practice}

@@ -34,6 +34,19 @@ router.get("/getRandomBooks" , BookController.getRandomBooks )
 
 
 
+
+
+//Practice -------------------------->
+
+router.get("/practiceMore" , BookController.practice )
+
+
+
+
+
+
+
+
 // For user 
 router.post("/createUser", UserController.createUser  )
 router.get("/getUsersData", UserController.getUsersData)
