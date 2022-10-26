@@ -1,12 +1,101 @@
-const { count } = require("console")
+
 const BookModel= require("../models/bookModel")
 
-const createBook= async function (req, res) {
-    let data= req.body
 
+// Problem Starts here ---------------------------------->
+
+
+// createBook : to create a new entry..use this api to create 11+ entries in your collection
+
+const createBook = async function (req, res) {
+    let data = req.body
     let savedData= await BookModel.create(data)
     res.send({msg: savedData})
 }
+
+
+// bookList : gives all the books- their bookName and authorName only 
+
+const bookList = async function(req, res){
+
+    let allData = await BookModel.find().select(
+        {bookName : 1 , authorName : 1 , _id : 0 }
+    )
+    res.send({Output : allData})
+}
+
+
+
+
+// getBooksInYear: takes year as input in post request and gives list of all books published that year
+
+const getBooksInYear = async function(req ,res){
+
+    let year =  req.body.year
+    // console.log(typeof year)
+
+    let allYearBooks = await BookModel.find({"year" : year})
+
+    res.send({ outputLen : allYearBooks.length , output : allYearBooks})
+
+}
+
+
+
+
+
+// getParticularBooks:- (this is a good one, make sincere effort to solve this) take any input and use it as a condition to fetch books that satisfy that condition
+// e.g if body had { name: “hi”} then you would fetch the books with this name
+// if body had { year: 2020} then you would fetch the books in this year
+// hence the condition will differ based on what you input in the request body
+
+
+const getParticularBooks = async function(req, res){
+
+    let bookName = req.query.name
+    let saal = req.query.saal
+    let writterName = req.query.writterName
+
+    let matched = await BookModel.find({ 
+       authorName : writterName , year : saal
+    })
+    res.send({OutPutLen : matched.length,output : matched})
+}
+
+
+
+
+// getXINRBooks- request to return all books who have an Indian price tag of “100INR” or “200INR” or “500INR” 
+
+const getXINRBooks = async function(req , res){
+
+    let allData = await BookModel.find({
+        "prices.indianPrice" : {$in :["Rs100" , "Rs200" , "Rs500"]}
+    })
+    res.send({OutPutLen : allData.length ,output : allData})
+}
+
+
+// getRandomBooks - returns books that are available in stock or have more than 500 pages 
+
+const getRandomBooks  = async function(req , res){
+
+    let allData = await BookModel.aggregate([
+        { $match: { totalPages: {$gt : 500} } },
+       { $sample: { size: 1 } }
+    ])
+    res.send({OutPutLen : allData.length ,output : allData})
+}
+
+
+
+// Problem End here ---------------------------------->
+
+
+
+
+
+
 
 const getBooksData= async function (req, res) {
 
@@ -65,21 +154,29 @@ const getBooksData= async function (req, res) {
     
     // ASYNC AWAIT
     
-    let a= 2+4
-    a= a + 10
-    console.log(a)
+    // let a= 2+4
+    // a= a + 10
+    // console.log(a)
     let allBooks= await BookModel.find( )  //normally this is an asynchronous call..but await makes it synchronous
 
 
     // WHEN AWAIT IS USED: - database + axios
     //  AWAIT can not be used inside forEach , map and many of the array functions..BE CAREFUL
-    console.log(allBooks)
-    let b = 14
-    b= b+ 10
-    console.log(b)
+    // console.log(allBooks)
+    // let b = 14
+    // b= b+ 10
+    // console.log(b)
     res.send({msg: allBooks})
 }
 
 
-module.exports.createBook= createBook
-module.exports.getBooksData= getBooksData
+// module.exports.createBook= createBook
+// module.exports.getBooksData= getBooksData
+// module.exports.bookList= bookList
+// module.exports.getBooksInYear= getBooksInYear
+// module.exports.getParticularBooks= getParticularBooks
+// module.exports.getXINRBooks= getXINRBooks
+// module.exports.getRandomBooks = getRandomBooks 
+
+
+module.exports = {createBook , getBooksData ,bookList , getBooksInYear ,getParticularBooks , getXINRBooks , getRandomBooks}
