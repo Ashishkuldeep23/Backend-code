@@ -71,6 +71,7 @@ const getXINRBooks = async function(req , res){
 
     let allData = await BookModel.find({
         "prices.indianPrice" : {$in :["Rs100" , "Rs200" , "Rs500"]}
+        // {"prices.indianPrice" : {$in :["Rs500" ,"Rs100" , "Rs200"] }}
     })
     res.send({OutPutLen : allData.length ,output : allData})
 }
