@@ -127,7 +127,7 @@ router.get("/films/:filId", function (req, res) {
 
     let id = req.params.filId
 
-    // console.log(id)
+    console.log(id)
 
     let result =  'No movie exists with this id.'
 
