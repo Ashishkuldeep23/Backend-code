@@ -156,13 +156,32 @@ let practice = async function(req , res){
 
 
 
-    //Next
+    // //Checking Sort method for other data type values by not understand well.
+    // let data = await BookModel.find().sort({bookName : 1})
+
+
+
+
+
+
+
+    // // findId() --> ishme null pane ke liye dyan do ki id ki jo length hai usme changes na aa jaye , agr length change kiya to error ayega null nhi.
+    // let data = await BookModel.findById("6358944aacfbe8ed4b297d85")
+
+
+
+    // // findOne()  --> ishme null pane ke liye make sure kro ki sirf output hi print krra rhe ho match data kya , na ki matched.length() and all.
+    // let data = await BookModel.findOne({authorName : "Ashish"})
+
+
+
+    // Next
 
     let data = await BookModel.find()
 
 
 
-    res.send({ outPutLen : data.length , Output : data})
+    res.send({ Output : data})
 }
 
 
