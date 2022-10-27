@@ -97,11 +97,65 @@ router.post("/creatingSomeMoreBook" , async function (req , res){
 
 
 
+// Not working till now
+// // If else with find() and findOne()
+router.get("/chekingFindAndFineOne" , async function(req , res){
+
+    let check = await bookModel.find({authorName : "AkK"})
+
+    console.log( typeof check)
+
+
+    if( (typeof check) === object ){
+
+        if(check.length > 0){
+            res.send({Output : check})
+        }else{
+
+            res.send({Output : "No one found"})
+        }
+
+    }
+    else{
+
+        if(check !== null){
+            res.send({Output : check})
+
+        }else{
+
+            res.send({Output : "No one found"})
+        }
+
+        
+    }
+
+})
+
+
+
+// // Update practice
+
+
+
+router.post("/updatingOnlyOne", async function (req, res) {
+    
+    let data = req.body.summary
+
+    let done = await bookModel.findOneAndUpdate( 
+        {authorName : "AshishK"} , { $set : {summary : data} }, {new : true }
+    )
+
+
+
+    res.send({done})
+})
 
 
 
 
 
+
+// end ----------------------------------------------------------------------->
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
