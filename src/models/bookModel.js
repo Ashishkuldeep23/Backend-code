@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema( {
+    
     bookName: String, 
     authorName: String, 
     tags: [String],
@@ -19,7 +20,14 @@ const bookSchema = new mongoose.Schema( {
         // "ch3" : "intro to db"
     //  }
     summary :  mongoose.Schema.Types.Mixed,
-    isDeleted: Boolean //true on book deletion i.e you flag the document/data as isDeleted: true..(mark "dirty")
+    isDeleted: Boolean ,//true on book deletion i.e you flag the document/data as isDeleted: true..(mark "dirty")
+
+    date : {
+        type : Date ,
+        default : Date.now()
+    }
+
+
 
 }, { timestamps: true });
 
