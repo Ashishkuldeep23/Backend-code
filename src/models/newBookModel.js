@@ -4,6 +4,8 @@
 
 const mongoose = require("mongoose")
 
+const objecId = mongoose.Schema.Types.ObjectId
+
 const newBookModel = new mongoose.Schema({
     
     // All Keys
@@ -14,8 +16,8 @@ const newBookModel = new mongoose.Schema({
     },
 
     author_id : {
-        type : Number ,
-        required : true
+        type : objecId ,
+        ref : 'author'
     },
 
     price : Number ,

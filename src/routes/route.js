@@ -21,6 +21,9 @@ router.post("/createAuthor" , problemsAre.createAuthor)
 router.post("/createNewBook" ,problemsAre.createNewBook )
 
 
+// Get all new Books :::: with ref and populate.
+
+router.get("/getAllNum" , problemsAre.getAllNum)
 
 
 
@@ -52,6 +55,12 @@ router.post("/findAndUpdateRupee" , problemsAre.findAndUpdateRupee )
 // Find the books which costs between 50-100(50,100 inclusive) and respond back with the author names of respective books..
 
 router.get("/allBooksInBetween" , problemsAre.allBooksInBetween )
+
+
+
+
+
+router.get("/newAllBooksInBetween" , problemsAre.newAllBooksInBetween )
 
 
 

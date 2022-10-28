@@ -27,6 +27,14 @@ const createNewBook = async function (req , res){
 }
 
 
+const getAllNum = async function(req , res) {
+
+    let allBooks = await newBookModel.find().populate('author_id')
+
+    res.send({AllBoksAre : allBooks})
+}
+
+
 
 
 
@@ -102,14 +110,34 @@ const allBooksInBetween = async function (req ,res){
         let id = ex[i]
         
         let writter = await authorModel.findOne({author_id : id })
+
+     
         
-        outPut.push({author_name : writter.author_name , author_id : writter.author_id})
+        outPut.push({author_name : writter.author_name , author_id : writter.author_id })
         
     }
 
     // console.log(outPut)
 
     res.send({"Books B-w 50 to 100" : allBookBetween  , "Respective Auhor" : outPut})
+}
+
+
+
+
+
+
+const newAllBooksInBetween = async function(req , res){
+
+    const bookList = await newBookModel.find({ price :{$gte : 50 , $lte : 100}}).select({author_id : 1 , name : 1 , _id : 0})
+
+
+    let authorIds = bookList.map( (index) => index.author_id)
+
+
+    
+
+    res.send({go : outPut  })
 }
 
 
@@ -124,5 +152,4 @@ const allBooksInBetween = async function (req ,res){
 
 
 
-
-module.exports = {createAuthor , createNewBook ,getIdByAuthorName , findAndUpdateRupee , allBooksInBetween}
+module.exports = {createAuthor , createNewBook ,getIdByAuthorName , findAndUpdateRupee , allBooksInBetween , newAllBooksInBetween ,getAllNum}
