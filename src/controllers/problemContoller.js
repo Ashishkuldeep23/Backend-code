@@ -68,13 +68,13 @@ const newBookCreate =  async function (req ,res){
 
 
     if( authorId === undefined ){
-        res.send({output : "Author id is not given"})
+      return  res.send({output : "Author id is not given"})
     }
 
 
 
     if( ! publisherId ){
-        res.send({output : "Publisher id is not given"})
+       return res.send({output : "Publisher id is not given"})
     }
     
 
@@ -82,11 +82,11 @@ const newBookCreate =  async function (req ,res){
 
 
     if(!(objectId.isValid(authorId))){
-        res.send({output : "Author id is not Valid"})
+      return  res.send({output : "Author id is not Valid"})
     }
 
     if(!(objectId.isValid(publisherId))){
-        res.send({output : "Publisher id is not Valid"})
+      return  res.send({output : "Publisher id is not Valid"})
     }
 
     let createdAuthor = await newBook2Model.create(bookData)
