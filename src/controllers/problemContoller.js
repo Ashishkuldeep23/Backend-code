@@ -89,8 +89,6 @@ const newBookCreate =  async function (req ,res){
         res.send({output : "Publisher id is not Valid"})
     }
 
-
-
     let createdAuthor = await newBook2Model.create(bookData)
 
     res.send({output : createdAuthor})
@@ -108,11 +106,13 @@ const newBookCreate =  async function (req ,res){
 
 
 
-const giveAllNewBoks = async function(req ,res){
-    
+const giveAllNewBoks = async function(req ,res){ 
     // let allNewBooksAre = await newBook2Model.find().populate("author").populate("publisher")
-    let allNewBooksAre = await newBook2Model.find().populate( ['author',"publisher"] )     // Both will work same
+    let allNewBooksAre = await newBook2Model.find().populate( [ 'author'  ,"publisher" ] )     // Both will work same
 
+
+    // Note :- Imp concept ---->
+    // let allNewBooksAre = await newBook2Model.find().populate("author" , {authorName : 1 , _id : 0}).populate("publisher" , {name : 1 , _id : 0})         // populating only on seleced value means , if we going to populate data then we populate only name of that data. 
 
     res.send({output : allNewBooksAre})
 
