@@ -261,7 +261,8 @@ const aggregateFirstTime = async function(req , res){
 
     let filteredData = await newBook2Model.aggregate([
         { $group :{_id : "$author" , totalRatingAre : {$sum : "$ratings"}} },
-        {$sort : {totalRatingAre : -1}}
+    //     {$sort : {totalRatingAre : -1}} ,
+        { $sample: { size: 1 } }        // This used how many data you want
     ])
 
 
