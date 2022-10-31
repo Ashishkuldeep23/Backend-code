@@ -10,6 +10,15 @@ const problemAre = require("../controllers/problemContoller")
 
 
 
+
+// Aggregate in action --------->
+
+router.get("/aggregateFirstTime" , problemAre.aggregateFirstTime)
+
+
+
+
+
 // Problem start here -------------------------------------------------------->
 
 

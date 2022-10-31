@@ -144,27 +144,44 @@ const booksPut = async function(req ,res){
 
     console.log(allPubiliserId)
 
+
+    //  // first way (1st)
+
     // let id1 = allPubiliserId[0]["_id"]
     // let id2 = allPubiliserId[0]["_id"]
 
+
+
     
-    allPubiliserId.forEach( async (ele) => {
+    // allPubiliserId.forEach( async (ele) => {
         
-        let id = ele["_id"]
+    //     let id = ele["_id"]
         
-        console.log(id)
+    //     console.log(id)
         
-        let updatesHardCover = await newBook2Model.updateMany(
-            {publisher : id} ,
-            {$set : {isHardCover : true}} 
+    //     let updatesHardCover = await newBook2Model.updateMany(
+    //         {publisher : id} ,
+    //         {$set : {isHardCover : true}} 
             
-            )
+    //         )
             
             
             
-        } )
+    //     } )
         
-        let out = "Update Successfull"
+    //     let out = "Update Successfull"
+
+
+
+    // // Second way (2nd way)
+
+    let allIdOfPublisher =  allPubiliserId.map( (el) => el._id)    // We can use this  // All id present in this var
+
+    let updateAll = await newBook2Model.updateMany(
+        { publisher : {$in : [allIdOfPublisher]} } ,
+        { $set : {isHardCover : true}}
+    )
+
 
 
 
@@ -172,7 +189,7 @@ const booksPut = async function(req ,res){
 
     // console.log(out)
 
-    res.send({OutPut : out})
+    res.send({OutPut : updateAll})
 
 
     
@@ -234,4 +251,28 @@ const priceIncBy10 = async function(req , res){
 
 
 
-module.exports = {newAuthorCreate , newPublisherCreate , newBookCreate , giveAllNewBoks ,booksPut , priceIncBy10}
+
+
+
+// Aggregate prectice
+
+
+const aggregateFirstTime = async function(req , res){
+
+    let filteredData = await newBook2Model.aggregate([
+        { $group :{_id : "$author" , totalRatingAre : {$sum : "$ratings"}} },
+        {$sort : {totalRatingAre : -1}}
+    ])
+
+
+    res.send({out : filteredData})
+}
+
+
+
+
+
+
+
+
+module.exports = {newAuthorCreate , newPublisherCreate , newBookCreate , giveAllNewBoks ,booksPut , priceIncBy10 , aggregateFirstTime}
