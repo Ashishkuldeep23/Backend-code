@@ -5,9 +5,34 @@ const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
 const commonMW = require ("../middlewares/commonMiddlewares")
 
-router.get("/test-me", function (req, res) {
+router.get("/testMe", function (req, res) {
     res.send("My first ever api!")
 })
+
+
+// // some more api for problem 
+
+
+router.get("/firstApi", function (req, res) {
+    res.send("1.)This is first api for check endpoint.")
+})
+
+
+router.get("/secondApi", function (req, res) {
+    res.send("2.)This is second api for check endpoint.")
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
