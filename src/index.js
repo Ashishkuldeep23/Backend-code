@@ -52,9 +52,9 @@ app.use (
   );
 
 
-  const globalMW = require("./middlewares/newMiddle")
-
-  app.use(globalMW.globalAk)
+// // // Making Global middle ware
+//   const globalMW = require("./middlewares/newMiddle")
+//   app.use(globalMW.globalAk)
 
 
 

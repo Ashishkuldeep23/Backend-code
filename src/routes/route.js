@@ -26,11 +26,14 @@ router.get("/secondApi", function (req, res) {
 
 
 
+// Making validaton for body content by middle ware
 
-router.get("/newlyApi1" , newMW.midAk1  , function(req , res){
+router.post("/newlyApi1" , newMW.isBody   , function(req , res){
+
+    let data = req.body
 
     console.log("Now i am in api")
-    res.send ("newly written api")
+    res.send ({msg : data})
 })
 
 
