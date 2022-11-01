@@ -5,6 +5,8 @@ const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
 const commonMW = require ("../middlewares/commonMiddlewares")
 
+const newMW = require("../middlewares/newMiddle")
+
 router.get("/testMe", function (req, res) {
     res.send("My first ever api!")
 })
@@ -25,6 +27,11 @@ router.get("/secondApi", function (req, res) {
 
 
 
+router.get("/newlyApi1" , newMW.midAk1  , function(req , res){
+
+    console.log("Now i am in api")
+    res.send ("newly written api")
+})
 
 
 
@@ -36,8 +43,7 @@ router.get("/secondApi", function (req, res) {
 
 
 
-
-router.post("/createBook", BookController.createBook  )
+// router.post("/createBook", BookController.createBook  )
 
 
 

@@ -51,6 +51,18 @@ app.use (
   
   );
 
+
+  const globalMW = require("./middlewares/newMiddle")
+
+  app.use(globalMW.globalAk)
+
+
+
+
+
+
+  
+
 app.use('/', route);
 
 
