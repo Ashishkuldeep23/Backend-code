@@ -44,6 +44,38 @@ router.post("/newlyApi1" , newMW.isBody   , function(req , res){
 
 
 
+// // // Practice Some delete API's  ----------------------------->
+
+
+const expsModel = require("../models/expsModel")
+
+
+
+router.get("/deleteSomeData" , async function(req, res){
+
+    // let data = req.body
+
+    // let newData = await expsModel.create(data)
+
+
+    let newData = await  expsModel.findOneAndReplace({name : "Ashi"} , {age : 50})
+    res.send({output : newData})
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // router.post("/createBook", BookController.createBook  )

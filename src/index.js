@@ -26,9 +26,16 @@ app.use (
         const today = moment()
         let timeAndDate = today.format('YYYY-MM-DD hh:mm:ss')
 
+
+        // let date = new Date.now("1667366890948")
+
+        // console.log(date)
+
+
         
-        let ipAddress = req.socket.remoteAddress.split(",")[0]
-        // console.log(ipAddress)
+        let ipAddress = req.ip      // This is used to get ip address of system for both(this and below).
+        // let ipAddress = req.socket.remoteAddress.split(",")[0]
+        // console.log(req)
 
         let endPoint = req.url      // .url and .path both gives endpoint as result.
         // let endPoint = req.path
