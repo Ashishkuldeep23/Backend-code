@@ -4,6 +4,34 @@ const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
 const commonMW = require ("../middlewares/commonMiddlewares")
 
+
+
+
+const ProblemController = require("../controllers/problemController")
+
+const { isFreeAppUserPresent , isFreeAppUserTF , isVaildUserId , isVaildProductId} = require('../middlewares/problemMiddleWare')
+
+
+// // // // Problem Start here ------------------------------------------->
+
+
+// Creating user
+router.post("/createUser" , isFreeAppUserPresent , isFreeAppUserTF , ProblemController.createUser) 
+
+// Craeting product
+router.post("/createProduct" , ProblemController.createProduct) 
+
+
+// // Creating Order api
+
+router.post("/createOrder" , isFreeAppUserPresent , isFreeAppUserTF , isVaildUserId , isVaildProductId , ProblemController.createOrder) 
+
+
+
+
+// // // // Problem End here ------------------------------------------->
+
+
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
