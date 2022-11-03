@@ -25,7 +25,7 @@ const orderModel  = new mongoose.Schema({
     }, 
 	date:{
         type : Date ,
-        default : Date.now()
+        default : Date.now(new Date())    // // This is user for date now.
     }
 
 
