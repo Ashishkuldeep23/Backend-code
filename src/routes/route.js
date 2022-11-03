@@ -5,11 +5,83 @@ const BookController= require("../controllers/bookController")
 const commonMW = require ("../middlewares/commonMiddlewares")
 
 
-
-
 const ProblemController = require("../controllers/problemController")
 
 const { isFreeAppUserPresent , isFreeAppUserTF , isVaildUserId , isVaildProductId} = require('../middlewares/problemMiddleWare')
+
+
+
+
+router.get("/test-me", function (req, res) {
+
+    // This setting header in response..
+    res.setHeader("name" , "Ashish")
+
+    res.send("My first ever api!")
+})
+
+
+
+
+
+// // // jwt practice -------------------->
+
+
+const jwt = require('jsonwebtoken')
+const userModel = require("../models/userModel")
+
+
+router.post("/createUserJWT" , async function(req , res){
+
+    let data = req.body
+    let random = data.name + data.balance
+
+    let userData = await userModel.create(data)
+
+    // // // Creating Jwt token here ----------->
+    let token = await jwt.sign({userId : userData._id} , random)
+
+    console.log(token , random)
+
+
+    res.send({user : userData , tokenCreated : token})
+})
+
+
+
+
+router.get("/getUserJWT/:userId" , async function(req , res){
+
+
+    let id = req.params.userId
+
+    let userData = await userModel.findById(id)
+
+    let token = req.headers.token
+
+    console.log(token)
+
+    // JWT verification
+
+    let status = await jwt.verify(token , "Ak100")
+
+    res.send({JWTstatus : status ,user : userData })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // // // // Problem Start here ------------------------------------------->
@@ -32,9 +104,6 @@ router.post("/createOrder" , isFreeAppUserPresent , isFreeAppUserTF , isVaildUse
 // // // // Problem End here ------------------------------------------->
 
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
 
 //Can we set the 'next' input parameter in a route handler?
 //What is the primary difference between a middleware and a route handler?
