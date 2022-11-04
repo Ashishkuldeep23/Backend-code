@@ -45,9 +45,13 @@ const createOrder = async function(req ,res){
     let userId = req.body.userId
     let productId = req.body.productId
 
+
+
+
+
+
+
     let isFreeAppUserValUe = req.isFreeAppUser
-
-
 
     let newData ;
 
@@ -56,7 +60,11 @@ const createOrder = async function(req ,res){
         req.body.isFreeAppUser = isFreeAppUserValUe
 
         data.amount = 0    // Updating amount 0 if my user is free app user
-        newData  = await orderModel.create(data)
+        let newOrder =  await orderModel.create(data)
+
+        newData = {"New order details" : newOrder}
+        
+
     }else{
 
         let productPrice = await productModel.findById(productId)
@@ -80,12 +88,26 @@ const createOrder = async function(req ,res){
 
             let userNewBalance = await userModel.findByIdAndUpdate(
                 {_id : userId} ,
-                {$inc:{balance : -actualProductPrice}} ,
+                // {$inc:{balance : -actualProductPrice}} ,    // // or
+                {$set:{balance : actualUserBalace - actualProductPrice}} ,
                 {new : true}
             )
 
+
+
+
+            const newOrder = await orderModel.create({
+                
+                userId: userId,
+                productId: productId, 
+                amount: actualProductPrice,
+                isFreeAppUser: false        // // // Becz knowing if false then code reached here ....
+            })
+
+
+
             // newData = await orderModel.create(data)
-            newData = {"Updated user balance " : userNewBalance }
+            newData = {"New order details " : newOrder ,"Updated user balance " : userNewBalance }
  
 
         }else{
