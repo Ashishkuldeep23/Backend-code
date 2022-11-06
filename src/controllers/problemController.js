@@ -158,7 +158,7 @@ const makePost = async function(req , res){
 
 
     // // If posts key not present in req.body
-    if(!newPostIs) return res.send("lease give some data in post key.....")
+    if(!newPostIs) return res.send("Please give some data in post key.....")
 
     let uploadPost = await userModel.findById(id)
 
@@ -171,7 +171,7 @@ const makePost = async function(req , res){
     // // After pushing data need to updated into DB so doing this -->
     let updetedData = await userModel.findOneAndUpdate(
         {_id : id},
-        {$push : {posts : newPostIs}},
+        {$push : {posts : newPostIs}},      // $push is mongoose opr. used as $set op. $push takes arr and newItem in object form.
         {new:true}
     )
 
