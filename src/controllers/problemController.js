@@ -57,6 +57,10 @@ const userLogIn = async function(req , res){
     let token = await jwt.sign({userName : name  , userId : id} , "functionUp-Lithium" )
 
     console.log(name ,":",token )
+
+
+
+
     res.send({staus : true , data : { yourToken : token } , outPut : getUser })
 
 }

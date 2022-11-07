@@ -9,6 +9,8 @@ const tokenCheck = function(req, res , next){
 
     let token = req.headers["x-auth-token"]
 
+    console.log(typeof token)
+
     // console.log(token)
 
     if(! token){

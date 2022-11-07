@@ -61,12 +61,25 @@ router.post("/users/makePost/:userId" , tokenCheck ,tokenVerify_Auth , problemCo
 
 
 
-
-
-
-
 router.get("/test-me", function (req, res) {
+
+    //console import variable only -->
+    // console.log(problemController)
+    // console.log(userController)
+
+
+
+    // console.log(req.headers)
+
+    // console.log(req.getHeader("host"))
+
+
+    res.setHeader("name" , "Ashish")
+
+    console.log(res.getHeader('name'))
+
     res.send("My first ever api!")
+
 })
 
 router.post("/users", userController.createUser)
