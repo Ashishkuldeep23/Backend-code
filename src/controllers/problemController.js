@@ -223,6 +223,7 @@ const userDelete = async function (req, res) {
 
 
 
+
 // Making new post -->
 const makePost = async function (req, res) {
 
@@ -259,7 +260,7 @@ const makePost = async function (req, res) {
 
         res.status(200).send({
             status: "Uploaded",
-            "Uploaded Post Is": updetedData.posts[updetedData.posts.length - 1],
+            "New Post Is": updetedData.posts[updetedData.posts.length - 1],
             allData: updetedData
         })
 
@@ -278,6 +279,8 @@ const makePost = async function (req, res) {
 
 
 }
+
+
 
 
 
@@ -307,6 +310,8 @@ const allUserData = async function (req, res) {
 
 
 }
+
+
 
 
 

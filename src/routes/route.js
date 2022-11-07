@@ -8,7 +8,7 @@ const userController= require("../controllers/userController")
 
 
 const problemController = require("../controllers/problemController")
-const { tokenCheck , tokenVerify_Auth } = require("../middleware/problemMW")
+const { tokenCheck ,isValidUserIdInParams, token_Authentication , token_Authorization} = require("../middleware/problemMW")
 
 
 
@@ -31,21 +31,21 @@ router.post("/userLogIn" , problemController.userLogIn)   // Jwt created
 
 
 // // pr3 --> Fetch user detail with userId and token 
-router.get("/users/:userId", tokenCheck , tokenVerify_Auth ,problemController.userFetch)
+router.get("/users/:userId", tokenCheck , token_Authentication , isValidUserIdInParams , token_Authorization ,problemController.userFetch)
 
 
 
 // // pr4 --> For Upadte 
-router.put("/users/:userId" ,tokenCheck , tokenVerify_Auth, problemController.userUpdate)
+router.put("/users/:userId" ,tokenCheck , token_Authentication , isValidUserIdInParams ,token_Authorization , problemController.userUpdate)
 
 
 // //pr5 --> For Delete
-router.delete("/users/:userId" ,tokenCheck ,tokenVerify_Auth , problemController.userDelete)
+router.delete("/users/:userId" ,tokenCheck , token_Authentication ,isValidUserIdInParams , token_Authorization , problemController.userDelete)
 
 
 
 // // Api for create new post --->
-router.post("/users/makePost/:userId" , tokenCheck ,tokenVerify_Auth , problemController.makePost )
+router.post("/users/makePost/:userId" , tokenCheck , token_Authentication , isValidUserIdInParams , token_Authorization ,problemController.makePost )
 
 
 

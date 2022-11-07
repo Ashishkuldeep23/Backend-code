@@ -13,7 +13,7 @@ const tokenCheck = function (req, res, next) {
 
         let token = req.headers["x-auth-token"]
 
-        console.log(typeof token)
+        // console.log(typeof token)
 
         // console.log(token)
 
@@ -33,6 +33,7 @@ const tokenCheck = function (req, res, next) {
 
 
 
+
     } catch (err) {
         console.log(err.message)
 
@@ -43,7 +44,7 @@ const tokenCheck = function (req, res, next) {
 
 
 
-    // next()
+
 
 
 
@@ -52,9 +53,11 @@ const tokenCheck = function (req, res, next) {
 
 
 
-// // // Token given and now verifing toke with .verify() function --------->
 
-const tokenVerify_Auth = async function (req, res, next) {
+
+// // // Token given and now verifing token is verify or not , with .verify() function --------->
+
+const token_Authentication = async function (req, res, next) {
 
 
     try {
@@ -62,7 +65,6 @@ const tokenVerify_Auth = async function (req, res, next) {
         let token = req.headers["x-auth-token"]
 
         // console.log(token)
-
 
 
         // Authentication part -->
@@ -73,42 +75,31 @@ const tokenVerify_Auth = async function (req, res, next) {
         // console.log(isTokenValid)   // Printing All Token data 
 
 
-
-
-
-        // Authorization part -->
-
-        // UserId from token data -->
-        let userIdInTokenEx = isTokenValid.userId
-
-        // console.log(userIdInTokenEx)    // Printing userId present in Token Data
-
-
-        // // // Checking Authorisation (userId given from params is equal to with token's userId or not ??)
-
-        let id = req.params.userId
-
-        if (userIdInTokenEx !== id) {
-            return res.status(403).send({ Status: false, msg: "Not Authorized , Given token is not matched with given userId in pah params" })
+        if (Object.keys(isTokenValid).length <= 0) {
+            return res.status(401).send({ staus: false, msg: "Given Token is not a valid token." })
         }
+
+
+
+        req.tokenPayloadData = isTokenValid
+
+
 
         next()
 
-        
+
 
 
     } catch (err) {
 
-        if (err) {
-            console.log("Error Occurs")
-            return res.status(500).send("Given JWT Token is NOT Valid, please give correct jwt token.")
-        }
+        console.log("Error Occurs")
+        return res.status(500).send("Given JWT Token is NOT Valid, please give correct jwt token.")
+
 
     }
 
 
 
-    // next()
 
 
 }
@@ -121,5 +112,132 @@ const tokenVerify_Auth = async function (req, res, next) {
 
 
 
-module.exports = { tokenCheck, tokenVerify_Auth }
+
+// Check given userId in path params is vaild or not ---->
+
+// // // Imp. Import for this fuctions ---> 
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
+const userModel = require("../models/userModel.js")
+
+
+const isValidUserIdInParams = async function (req, res, next) {
+
+    try {
+
+        let id = req.params.userId
+
+        // console.log(id)
+
+
+        let isValid = ObjectId.isValid(id)
+
+
+        if (!isValid) {
+            return res.status(400).send({ staus: false, msg: "userId is not a valid given in path params (Mandatory field is incorrect)" })
+        }
+
+
+
+        let dataInDB = await userModel.findById(id)
+
+
+        if (!dataInDB) {
+            return res.status(400).send({ staus: false, msg: "userId is not present in database (Mandatory field is incorrect)" })
+        }
+
+
+        next()
+
+
+    } catch (e) {
+
+        console.log("Error Occurs")
+        return res.status(500).send("Id is incorrect or not matched with any data present in DB")
+
+    }
+
+
+
+
+   
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // // Matching token userId with req.params userId to check user is authorized or not ??
+
+const token_Authorization = async function (req, res, next) {
+
+    try {
+
+        // Authorization part -->
+
+        // UserId from token data -->
+
+        // // // Extractng userId from req attributes by below line -->
+        let userIdInTokenEx = req.tokenPayloadData.userId
+
+
+        // // // req.tokenPayloadData is a JSON obj given by .verify() function of jwt
+
+        console.log(userIdInTokenEx)
+
+
+        // console.log(userIdInTokenEx)    // Printing userId present in Token Data
+
+
+        // // // Checking Authorisation (userId given from params is equal to with token's userId or not ??)
+
+        let id = req.params.userId
+
+        if (userIdInTokenEx !== id) {
+            return res.status(403).send({ Status: false, msg: "Not Authorized , Given token is not matched with given userId in path params" })
+        }
+
+
+        next()
+
+
+
+    } catch (err) {
+
+        console.log("Error Occurs")
+        return res.status(500).send("Given JWT Token is NOT Valid, please give correct jwt token.")
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+module.exports = { tokenCheck, token_Authentication, isValidUserIdInParams, token_Authorization }
 
