@@ -4,11 +4,95 @@ const router = express.Router();
 const userController= require("../controllers/userController")
 
 
+// // // Axios prectice ---->
+
+
+const axios = require('axios') 
+
+
+
+router.get("/getStates" , async function(req , res){
+
+
+    try{    
+
+        let options = {
+            method: 'get' ,
+
+            // This url for All states of India -->
+            url:'https://cdn-api.co-vin.in/api/v2/admin/location/states'
+
+            // // // This url for districts of UP
+            // -->  'https://cdn-api.co-vin.in/api/v2/admin/location/districts/34'
+        }
+
+
+        let result = await axios(options)
+
+
+
+        // let str = CircularJSON.stringify(result);
+
+        // result.JSON.stringify()
+
+        console.log(result)
+
+        // // // Agr below line miss kroge to error ayega --> (TypeError: Converting circular structure to JSON)
+        let data = result.data
+
+        console.log(data)
+        // console.log(JSON.parse(str))    
+
+        res.status(200).send({status : true , msg : data})
+
+
+
+
+    }catch(e){
+        console.log(e)
+    }
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // // // Imports are ------------------------------->
 
 
 const problemController = require("../controllers/problemController")
 const { tokenCheck ,isValidUserIdInParams, token_Authentication , token_Authorization} = require("../middleware/problemMW")
+
+
+
+// // // Assignment - 
+// // // Implement Try Catch and status codes in the previous assignment on JWT (authentication and authorization)
+
+
+
 
 
 

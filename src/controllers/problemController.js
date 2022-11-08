@@ -41,8 +41,8 @@ const createUserReg = async function (req, res) {
 
     } catch (e) {
         console.log(e.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
     }
 
 
@@ -91,8 +91,9 @@ const userLogIn = async function (req, res) {
 
     } catch (err) {
         console.log(err.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
+
     }
 
 
@@ -128,8 +129,9 @@ const userFetch = async function (req, res) {
 
     } catch (err) {
         console.log(err.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
+
     }
 
 }
@@ -167,8 +169,9 @@ const userUpdate = async function (req, res) {
 
     } catch (err) {
         console.log(err.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
+
     }
 
 
@@ -187,9 +190,6 @@ const userUpdate = async function (req, res) {
 const userDelete = async function (req, res) {
 
     try {
-
-
-
 
         let id = req.params.userId
 
@@ -210,8 +210,9 @@ const userDelete = async function (req, res) {
     } catch (err) {
 
         console.log(err.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
+
     }
 
 
@@ -229,9 +230,6 @@ const makePost = async function (req, res) {
 
 
     try {
-
-
-
 
         let id = req.params.userId
 
@@ -270,8 +268,8 @@ const makePost = async function (req, res) {
     } catch (error) {
 
         console.log(error.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
 
     }
 
@@ -299,12 +297,11 @@ const allUserData = async function (req, res) {
         res.status(200).send({ OutPut: allData })
         // Fetching data and every thing is ok thats why i'm using 200 status code
 
-    }
-
-    catch (error) {
+    }catch (error) {
         console.log(error.message)
-
         res.status(500).send({ staus: false, msg: error.message })
+        // // 500 becz some server side error occurs
+
 
     }
 
