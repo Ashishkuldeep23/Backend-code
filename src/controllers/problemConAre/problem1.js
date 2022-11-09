@@ -10,6 +10,8 @@ const allStates = async function (req, res) {
 
         let result = await axios.get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
 
+        console.log(result)
+
         console.log(result.data)
 
         res.status(200).send({ msg: result.data })
@@ -19,9 +21,6 @@ const allStates = async function (req, res) {
         console.log(err)
         res.status(500).send({ msg: err.message })
     }
-
-
-
 
 }
 
@@ -62,8 +61,7 @@ const allDistrict = async function (req, res) {
 const sessionByDistrictId = async function (req, res) {
 
     try {
-
-        let { district_id, date } = req.query
+        let { district_id , date } = req.query
 
         let result = await axios.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${district_id}&date=${date}`)
 

@@ -52,7 +52,7 @@ const getWeatherOfManyCities = async function(req,res){
 
         const cities = ["Bengaluru" , "Mumbai" , "Delhi" , "Kolkata" , "Chennai" , "London" , "Moscow"]
 
-        const temp = [];
+        const temp = []
 
         for (let i = 0; i < cities.length; i++) {
 

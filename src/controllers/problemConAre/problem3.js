@@ -7,7 +7,7 @@ let axios = require('axios')
 const getOwnMeme = async function (req, res) {
 
     try {
-        let { template_id, text0, text1, username, password } = req.query
+        let { template_id , text0 , text1 , username , password } = req.query
 
         if (!template_id || !text0 || !username || !password) {
             return res.status(400).send({ msg: "Mandatory field is not given" })
@@ -49,7 +49,7 @@ const getAllMemes = async function (req, res) {
 
         let data = result.data
 
-        console.log(data)
+        // console.log(data)
         res.status(200).send({ data: data })
 
 
