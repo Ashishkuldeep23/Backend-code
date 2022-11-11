@@ -47,7 +47,7 @@ const getBooksInYear = async function(req ,res){
 
 
 const getParticularBooks = async function(req, res){
-    let bookName = req.query.name
+    // let bookName = req.query.name
     let saal = req.query.saal
     let writterName = req.query.writterName
 

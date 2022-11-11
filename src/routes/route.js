@@ -30,6 +30,37 @@ router.get("/getRandomBooks" , BookController.getRandomBooks )
 
 // Problem End here ---------------------------------->
 
+// Prectice stats here -------------------------->
+
+const bookModel = require("../models/bookModel") 
+
+// p1 --> get all books present in DB
+
+router.get("/getAllBookFromDB" , async function(req ,res){
+
+    let newData = await bookModel.find({authorName: "PK"})
+
+    res.status(200).send({Data : newData , msg : "All ok"})
+})
+
+
+// // p2 --> update book data acc. to body
+
+router.put("/upadetBookByBody" , async function (req ,res){
+
+    let data = req.body
+
+    let newData = await bookModel.updateMany(
+        {authorName: "PK"} ,
+        { $set :  data }
+    )
+
+    res.status(200).send({Data : newData , msg : "All ok"})
+
+
+
+})
+
 
 
 
