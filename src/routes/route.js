@@ -25,12 +25,6 @@ router.get("/aggregateFirstTime" , problemAre.aggregateFirstTime)
 // // .populate('friends', { username: 1, age: 1}) used This
 
 
-
-
-
-
-
-
 router.post("/newAuthorCreate" , problemAre.newAuthorCreate)
 
 
@@ -51,28 +45,41 @@ router.post("/newPublisherCreate" , problemAre.newPublisherCreate)
 router.post("/newBookCreate" , problemAre.newBookCreate)
 
 
-
-
 router.get("/giveAllNewBoks" , problemAre.giveAllNewBoks)
-
-
 
 
 router.put("/booksPut" , problemAre.booksPut)
 
 
-
 router.put("/priceIncBy10" , problemAre.priceIncBy10)
 
 
-
-
-
-
-
-
-
 // Problem End here --------------------------------------------------------------->
+
+
+// // More Practice here ------------------------------------------------->
+
+let newBookNodel = require('../models/newBook2')
+
+// // P1) .populate() more actions (So this is populate with select as one argument) ---->
+
+
+router.get("/getAllBooksAgain" , async function(req,res){
+
+
+    let newData = await newBookNodel.find().populate({path : "author"  , select : {authorName : 1 , _id : 0}})
+    res.send({data : newData})
+})
+
+
+
+
+
+
+
+
+
+
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
