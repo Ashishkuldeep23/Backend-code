@@ -205,6 +205,36 @@ const newAllBooksInBetween = async function(req , res){
 
 
 
+const new2AllBooksInBetween = async function(req , res){
+
+    const bookList = await newBookModel.find({ price :{$gte : 50 , $lte : 100}}).select({author_id : 1 , name : 1 , _id : 0})
+
+    // bookList[1] = 10
+    
+    // All author id will taken below in authorId (Typeof is Arr) -->
+    let authorIds = bookList.map( (index) => index.author_id)
+    
+    // Empty arr for final output
+    let out = []
+
+
+
+    let authorNames = await authorModel.find({author_id : {$in : authorIds }}).select({author_id : 1 , author_name : 1 , _id : 0})
+
+
+    // for(let i=0 ; i<bookList.length ; i++){
+
+    //     if(bookList[i]["author_id"]){
+
+    //     }
+
+    // }
+    
+
+    res.send({ "Book With Author Name is" : authorNames })
+
+
+}
 
 
 
@@ -213,4 +243,9 @@ const newAllBooksInBetween = async function(req , res){
 
 
 
-module.exports = {createAuthor , createNewBook ,getIdByAuthorName , findAndUpdateRupee , allBooksInBetween , newAllBooksInBetween ,getAllBooksPresent}
+
+
+
+
+
+module.exports = {createAuthor , createNewBook ,getIdByAuthorName , findAndUpdateRupee , allBooksInBetween , newAllBooksInBetween ,getAllBooksPresent , new2AllBooksInBetween}
