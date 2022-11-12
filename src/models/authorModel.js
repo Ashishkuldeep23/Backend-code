@@ -1,7 +1,3 @@
-
-
-
-
 const mongoose = require("mongoose")
 
 const authorModel = new mongoose.Schema({
@@ -18,7 +14,9 @@ const authorModel = new mongoose.Schema({
         type : String ,
         required : true
     } ,
+
     age : Number ,
+
     address : String
 
 

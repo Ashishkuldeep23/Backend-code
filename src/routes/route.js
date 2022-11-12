@@ -23,7 +23,7 @@ router.post("/createNewBook" ,problemsAre.createNewBook )
 
 // Get all new Books :::: with ref and populate.
 
-router.get("/getAllNum" , problemsAre.getAllNum)
+router.get("/getAllNum" , problemsAre.getAllBooksPresent)
 
 
 
@@ -31,7 +31,7 @@ router.get("/getAllNum" , problemsAre.getAllNum)
 
 
 // List out the books written by "Chetan Bhagat" ( this will need 2 DB queries one after another- first query will find the author_id for "Chetan Bhagat”. Then next query will get the list of books with that author_id )
-    
+
 router.get("/getIdByAuthorName" ,problemsAre.getIdByAuthorName)  
 
 
@@ -57,6 +57,7 @@ router.post("/findAndUpdateRupee" , problemsAre.findAndUpdateRupee )
 router.get("/allBooksInBetween" , problemsAre.allBooksInBetween )
 
 
+// // // OR (Above or Below)
 
 
 

@@ -1,7 +1,3 @@
-
-
-
-
 const mongoose = require("mongoose")
 
 const objecId = mongoose.Schema.Types.ObjectId
@@ -16,8 +12,9 @@ const newBookModel = new mongoose.Schema({
     },
 
     author_id : {
-        type : objecId ,
-        ref : 'author'
+        type : Number ,
+        // ref : 'author'
+        
     },
 
     price : Number ,
